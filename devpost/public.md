@@ -1,7 +1,7 @@
 ---
 doc: learner-profile-public
-status: completed-4-spec
-next-step: 5-build
+status: completed-5-build
+next-step: 6-ship
 ---
 
 # Beeplex — Project Profile & Progress (Public)
@@ -29,10 +29,10 @@ next-step: 5-build
   - Product behaviors, state transitions, and edge cases defined and approved (`devpost/prd.md`, `devpost/prd.html`).
 * **Step 4 (`4-spec`)**: Completed ✅
   - Technical architecture, component layout, and data models approved (`devpost/spec.md`, `devpost/spec.html`).
-* **Step 5 (`5-build`)**: Next ⏳
-  - Step-by-step implementation, verification, and code tour.
-* **Step 5 (`5-build`)**: Pending
-* **Step 6 (`6-ship`)**: Pending
+* **Step 5 (`5-build`)**: Completed ✅
+  - All 3 slices implemented, verified, kick-the-tires tested, and documented (`devpost/checklist.md`, `devpost/app-map.html`).
+* **Step 6 (`6-ship`)**: Next ⏳
+  - Prepare demo video, repository audit, and Devpost submission.
 
 ## 3. Workflow Preferences
 * **Format**: Plan-first, spec-driven development.

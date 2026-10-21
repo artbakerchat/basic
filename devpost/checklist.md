@@ -42,22 +42,24 @@ Build mode: fast
 ## Hands-on Checkpoints
 
 - [x] Early usable behavior explored — Slice 2 boundary (full foraging and hive deposit loop)
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: [what actually happened; real document/test/code references; unfinished work if interrupted]
-Route and stops: [actual paths and symbols; guided stops completed, or reference-only route]
-Edit outcome: [tried/kept/reverted/declined/not applicable; verification if changed]
-Reflection: [offered/answered/declined/already covered — personal answer belongs only in the ignored profile]
-Activity mode: [live app and editor, explicit static fallback, focused alternative, prior practice, or recap]
+Activity and evidence: Focused route through ScentBeaconController.cs, BeeAgent.cs, and TimeEventManager.cs; verified against PRD Features 1-4 and working Unity mechanics.
+Route and stops: Assets/Scripts/Bee/ScentBeaconController.cs (HandleGazeRaycast), Assets/Scripts/Bee/BeeAgent.cs (UpdateFlight, HarvestRoutine), Assets/Scripts/Core/TimeEventManager.cs (DreamBloomRoutine)
+Edit outcome: not applicable — learner confirmed all behaviors, timings, and visual transitions operate reliably with zero changes needed.
+Reflection: addressed via decoupled input & autonomous agent state machine takeaway
+Activity mode: focused alternative connecting action to evidence and reusable practice
 
 ## Revisions
+
+- None — all planned behaviors, flight mechanics, and nocturnal event timings matched specifications on first pass.

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beeplex — App Map & Learning Guide</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --amber: #f59e0b;
+      --amber-light: #fbbf24;
+      --cyan: #38bdf8;
+      --green: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--amber-light);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    h3 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    p { margin-bottom: 0.75rem; color: #e5e7eb; }
+    
+    .diagram-container {
+      background: #0d131f;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    
+    .stop-card {
+      background: #0f172a;
+      border-left: 4px solid var(--amber);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    .stop-card.cyan { border-left-color: var(--cyan); }
+    .stop-card.green { border-left-color: var(--green); }
+    .stop-title {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .code-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #1e293b;
+      color: #93c5fd;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .change-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .change-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .change-card-title {
+      font-weight: 700;
+      color: var(--amber-light);
+      margin-bottom: 0.35rem;
+    }
+    .change-card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1><span>🐝</span> Beeplex — App Map</h1>
+      <p class="subtitle">Architectural guide, code navigation route, and reusable agent practices.</p>
+    </div>
+    <div>
+      <span class="badge">✓ Build Complete & Verified</span>
+    </div>
+  </header>
+
+  <!-- Section 1: Overview -->
+  <section>
+    <h2>What Was Built</h2>
+    <p>
+      <strong>Beeplex</strong> is a 2D ambient bee foraging simulation built with Unity and C#. Rather than arcade stick controls, the player directs the bee indirectly through gaze-projected scent beacons. At 3:00 AM real time, a 45-second nocturnal Dream Bloom event transforms the meadow into deep midnight blue, activates cyan bioluminescent flora with rising spores, and allows harvesting rare Dream Drops.
+    </p>
+  </section>
+
+  <!-- Section 2: Code Route Diagram -->
+  <section>
+    <h2>The Action Route: From Gaze to Score</h2>
+    <p>How one core action flows through the codebase:</p>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 880 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b"/>
+          </marker>
+        </defs>
+
+        <!-- Stop 1: Raycast -->
+        <rect x="20" y="40" width="180" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="110" y="65" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">STOP 1: Gaze Raycast</text>
+        <text x="110" y="85" text-anchor="middle" fill="#fff" font-size="12">ScentBeaconController.cs</text>
+        <text x="110" y="105" text-anchor="middle" fill="#94a3b8" font-size="10">HandleGazeRaycast()</text>
+
+        <line x1="200" y1="85" x2="240" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Stop 2: Bee Steering & FSM -->
+        <rect x="250" y="40" width="180" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="340" y="65" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">STOP 2: Steering & FSM</text>
+        <text x="340" y="85" text-anchor="middle" fill="#fff" font-size="12">BeeAgent.cs</text>
+        <text x="340" y="105" text-anchor="middle" fill="#94a3b8" font-size="10">UpdateFlight() + Harvest</text>
+
+        <line x1="430" y1="85" x2="470" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Stop 3: Time & Lighting -->
+        <rect x="480" y="40" width="180" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="570" y="65" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">STOP 3: 3 AM Director</text>
+        <text x="570" y="85" text-anchor="middle" fill="#fff" font-size="12">TimeEventManager.cs</text>
+        <text x="570" y="105" text-anchor="middle" fill="#94a3b8" font-size="10">DreamBloomRoutine()</text>
+
+        <line x1="660" y1="85" x2="700" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Stop 4: HUD UI -->
+        <rect x="710" y="40" width="150" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+        <text x="785" y="65" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">RESULT: Canvas HUD</text>
+        <text x="785" y="85" text-anchor="middle" fill="#fff" font-size="12">HUDManager.cs</text>
+        <text x="785" y="105" text-anchor="middle" fill="#94a3b8" font-size="10">Slider & Scores</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Section 3: Guided Code Stops -->
+  <section>
+    <h2>Code Route Stops</h2>
+
+    <div class="stop-card">
+      <div class="stop-title">
+        <span>Stop 1: Scent Beacon Projection</span>
+        <span class="code-pill">Assets/Scripts/Bee/ScentBeaconController.cs</span>
+      </div>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+        Anchor: <code>HandleGazeRaycast()</code>. Reads the mouse screen position, projects a 2D raycast through <code>Camera.main.ScreenToWorldPoint()</code>, and dispatches <code>OnBeaconPlaced</code> to draw the bee toward interactive colliders.
+      </p>
+    </div>
+
+    <div class="stop-card cyan">
+      <div class="stop-title">
+        <span>Stop 2: Autonomous Flight & Retargeting</span>
+        <span class="code-pill">Assets/Scripts/Bee/BeeAgent.cs</span>
+      </div>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+        Anchor: <code>UpdateFlight()</code> and <code>HarvestRoutine()</code>. Calculates Vector2 normalized steering toward the beacon, adds a perpendicular <code>Mathf.Sin</code> hover oscillation, and queues new gaze targets if the bee is actively siphoning nectar.
+      </p>
+    </div>
+
+    <div class="stop-card green">
+      <div class="stop-title">
+        <span>Stop 3: 3:00 AM Real-Time Director</span>
+        <span class="code-pill">Assets/Scripts/Core/TimeEventManager.cs</span>
+      </div>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+        Anchor: <code>DreamBloomRoutine()</code>. Triggers the 45-second event when <code>DateTime.Now.Hour == 3</code> (or via the <code>triggerTestEvent</code> inspector toggle), dims ambient lighting to midnight blue, and activates cyan Light2D and spore emitters on dream blooms.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 4: To Change This, Start Here -->
+  <section>
+    <h2>To Change This, Start Here</h2>
+    <div class="change-grid">
+      <div class="change-card">
+        <div class="change-card-title">Bee Speed or Hover Wobble</div>
+        <div class="change-card-body">
+          Adjust <code>flightSpeed</code>, <code>hoverFrequency</code>, or <code>hoverAmplitude</code> in <span class="code-pill">BeeAgent.cs</span>.
+        </div>
+      </div>
+      <div class="change-card">
+        <div class="change-card-title">Harvest Duration & Yield</div>
+        <div class="change-card-body">
+          Change siphon wait time in <span class="code-pill">BeeAgent.cs > HarvestRoutine()</span> or <code>nectarYield</code> in <span class="code-pill">FlowerPatch.cs</span>.
+        </div>
+      </div>
+      <div class="change-card">
+        <div class="change-card-title">Event Duration & Testing</div>
+        <div class="change-card-body">
+          Modify <code>eventDurationSeconds</code> (default: 45s) or toggle <code>triggerTestEvent</code> in <span class="code-pill">TimeEventManager.cs</span>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: A Practice to Reuse -->
+  <section>
+    <h2>A Practice to Reuse</h2>
+    <div style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--amber); padding: 1.25rem; border-radius: 0 8px 8px 0;">
+      <h3 style="color: var(--amber-light); margin-top: 0;">Decoupling Input from Agent Autonomy via Scent Beacons</h3>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+        Instead of directly manipulating character velocity from player input (which often creates rigid or tangled movement code), the input layer merely drops an abstract world-space beacon event (<code>OnBeaconPlaced</code>). The autonomous agent independently evaluates its own state machine (<code>Idle</code>, <code>Flying</code>, <code>Harvesting</code>) to decide how and when to respond.
+      </p>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem; color: var(--text-muted);">
+        <strong>Takeaway for your next AI project:</strong> When creating autonomous or emergent behavior, decouple player intention into objective signals in the world rather than hard-coding direct input into your creature's state logic.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 6: Running the Project -->
+  <section>
+    <h2>Running the Project</h2>
+    <p>
+      Open the project in Unity Editor (2022.3 LTS+ or 6 LTS), open <code>Assets/Scenes/MainMeadow.unity</code>, and click <strong>Play</strong>.
+    </p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+      Snapshot generated for build commit: <code>a83d863</code>.
+    </p>
+  </section>
+
+  <footer>
+    Devpost Learn: Build With AI: Basics • Canonical Record: <code>devpost/checklist.md</code>
+  </footer>
+
+</body>
+</html>
