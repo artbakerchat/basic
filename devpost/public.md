@@ -1,7 +1,7 @@
 ---
 doc: learner-profile-public
-status: completed-1-start
-next-step: 2-scope
+status: completed-2-scope
+next-step: 3-prd
 ---
 
 # Beeplex — Project Profile & Progress (Public)
@@ -23,9 +23,10 @@ next-step: 2-scope
 * **Step 1 (`1-start`)**: Completed ✅
   - Workspace initialized with git and curriculum skills.
   - Project concept and pacing established.
-* **Step 2 (`2-scope`)**: Next ⏳
-  - Narrowing the idea down to a 2–4 hour proof-of-concept boundary.
-* **Step 3 (`3-prd`)**: Pending
+* **Step 2 (`2-scope`)**: Completed ✅
+  - Scope defined and approved (`devpost/scope.md`, `devpost/scope.html`).
+* **Step 3 (`3-prd`)**: Next ⏳
+  - Detailed product behavior, state machine, and scene specs.
 * **Step 4 (`4-spec`)**: Pending
 * **Step 5 (`5-build`)**: Pending
 * **Step 6 (`6-ship`)**: Pending

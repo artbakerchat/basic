@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beeplex — Project Scope</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --amber: #f59e0b;
+      --amber-light: #fef3c7;
+      --amber-glow: rgba(245, 158, 11, 0.25);
+      --dream-cyan: #38bdf8;
+      --dream-glow: rgba(56, 189, 248, 0.25);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.2);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--green-glow);
+      color: #34d399;
+      border: 1px solid #059669;
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    h1 span.bee {
+      font-size: 2rem;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fbbf24;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    p {
+      color: #e5e7eb;
+      margin-bottom: 0.75rem;
+    }
+    .highlight-card {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .dream-card {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .diagram-container {
+      background: #0d131f;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    svg text {
+      font-family: inherit;
+    }
+    /* Tabs & Structured Reveals */
+    .tab-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.5rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .tab-btn.active {
+      background: var(--amber);
+      color: #000;
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .boundary-list {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .boundary-item {
+      padding: 0.85rem 1rem;
+      background: #0f172a;
+      border-radius: 6px;
+      border-left: 4px solid var(--amber);
+    }
+    .boundary-item.later {
+      border-left-color: #60a5fa;
+    }
+    .boundary-item.cut {
+      border-left-color: #ef4444;
+    }
+    .boundary-title {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .boundary-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    /* Hierarchy Tree */
+    .tree {
+      background: #0d131f;
+      border: 1px solid #1e293b;
+      padding: 1.25rem;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      color: #93c5fd;
+      line-height: 1.6;
+    }
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1><span class="bee">🐝</span> Beeplex</h1>
+      <p class="subtitle">A real-time ambient bee foraging simulator with a rare 3:00 AM nocturnal event.</p>
+    </div>
+    <div>
+      <span class="badge">✓ Scope Approved</span>
+    </div>
+  </header>
+
+  <!-- Section 1: The Unique Kernel -->
+  <section>
+    <h2>The Unique Kernel</h2>
+    <p>
+      Instead of manual arcade flight controls, the player directs the bee indirectly: looking at a flower patch casts an invisible <strong>"scent beacon"</strong> that triggers dynamic pathfinding and hovering over the flower to gather nectar.
+    </p>
+    <div class="dream-card">
+      <strong style="color: var(--dream-cyan);">✧ The 3:00 AM Dream Bloom Window:</strong>
+      <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+        The simulation hooks strictly into real-world local time. At 3:00 AM sharp, the nocturnal "Dream Bloom" illuminates, empowering the bee to harvest elusive <strong>Dream Drops</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: Core Loop & System Diagram -->
+  <section>
+    <h2>The Core Loop</h2>
+    <p>The loop balances peaceful observation with attentive nocturnal gathering:</p>
+    
+    <div class="diagram-container">
+      <svg viewBox="0 0 760 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#fbbf24" />
+          </linearGradient>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b"/>
+          </marker>
+        </defs>
+
+        <!-- Node 1: Gaze -->
+        <rect x="10" y="50" width="140" height="70" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="80" y="80" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Player Gaze</text>
+        <text x="80" y="98" text-anchor="middle" fill="#94a3b8" font-size="11">Casts Scent Beacon</text>
+
+        <!-- Arrow 1 -> 2 -->
+        <line x1="150" y1="85" x2="190" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Node 2: Pathfind & Hover -->
+        <rect x="200" y="50" width="150" height="70" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="275" y="80" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Bee Navigates</text>
+        <text x="275" y="98" text-anchor="middle" fill="#94a3b8" font-size="11">Pathfinds & Hovers</text>
+
+        <!-- Arrow 2 -> 3 -->
+        <line x1="350" y1="85" x2="390" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Node 3: Nectar Fill -->
+        <rect x="400" y="50" width="150" height="70" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="475" y="80" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Nectar Harvest</text>
+        <text x="475" y="98" text-anchor="middle" fill="#94a3b8" font-size="11">Slider fills (0-20)</text>
+
+        <!-- Arrow 3 -> 4 -->
+        <line x1="550" y1="85" x2="590" y2="85" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Node 4: Hive Deposit -->
+        <rect x="600" y="50" width="150" height="70" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+        <text x="675" y="78" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Hive Deposit</text>
+        <text x="675" y="95" text-anchor="middle" fill="#34d399" font-size="10">Honey + Dream Drops</text>
+        <text x="675" y="108" text-anchor="middle" fill="#38bdf8" font-size="10">(3 AM Event)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Section 3: Visual Identity & Unity Canvas HUD -->
+  <section>
+    <h2>Unity Canvas HUD Structure</h2>
+    <p>The interface keeps the player informed with real-time status and colony production:</p>
+    <div class="tree">
+Canvas<br>
+└── HUD (Empty Object)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── <strong>Clock_Text</strong> (TextMeshPro - Top Center) ➔ "03:15 AM"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── <strong>DreamEvent_Banner</strong> (TextMeshPro - Below Clock) ➔ "✧ DREAM BLOOM ACTIVE ✧"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── <strong>Nectar_Slider</strong> (UI Slider - Top Left / Center) ➔ Fill: Golden Yellow ("15 / 20 Nectar")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── <strong>HiveScore_Panel</strong> (Top Right)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── <strong>StandardHoney_Text</strong> ➔ "Honey: 120"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <strong>DreamNectar_Text</strong> ➔ "Dream Drops: 3"
+    </div>
+  </section>
+
+  <!-- Section 4: POC Boundary (Interactive Tabs) -->
+  <section>
+    <h2>Proof of Concept Boundary</h2>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('now')">Now (In Scope)</button>
+      <button class="tab-btn" onclick="switchTab('later')">Later</button>
+      <button class="tab-btn" onclick="switchTab('cut')">Explicitly Cut</button>
+    </div>
+
+    <!-- Now Panel -->
+    <div id="panel-now" class="tab-panel active">
+      <div class="boundary-list">
+        <div class="boundary-item">
+          <div class="boundary-title">Unity Canvas HUD</div>
+          <div class="boundary-desc">Clock_Text, DreamEvent_Banner, Nectar_Slider, and HiveScore_Panel wired to game state.</div>
+        </div>
+        <div class="boundary-item">
+          <div class="boundary-title">Scent Beacon Guidance</div>
+          <div class="boundary-desc">Gaze / target placement on flowers casts an invisible beacon directing the bee.</div>
+        </div>
+        <div class="boundary-item">
+          <div class="boundary-title">Dynamic Bee Pathfinding & Hovering</div>
+          <div class="boundary-desc">Smooth autonomous navigation toward the active beacon and flower hovering state.</div>
+        </div>
+        <div class="boundary-item">
+          <div class="boundary-title">Nectar Harvesting & Capacity</div>
+          <div class="boundary-desc">Harvesting blossoms increments nectar slider up to defined capacity limit.</div>
+        </div>
+        <div class="boundary-item">
+          <div class="boundary-title">Hive Deposit & Score Tracking</div>
+          <div class="boundary-desc">Returning to the hive unloads nectar to increment Standard Honey and Dream Drops.</div>
+        </div>
+        <div class="boundary-item">
+          <div class="boundary-title">Real-Time 3:00 AM Clock Event</div>
+          <div class="boundary-desc">Continuously reads local system time to trigger the 3:00 AM Dream Bloom banner and Dream Drops harvest.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Later Panel -->
+    <div id="panel-later" class="tab-panel">
+      <div class="boundary-list">
+        <div class="boundary-item later">
+          <div class="boundary-title">Hive Expansion & Upgrades</div>
+          <div class="boundary-desc">Spending honey on new comb cells, hive capacity, and defense.</div>
+        </div>
+        <div class="boundary-item later">
+          <div class="boundary-title">Multiple Bees & Swarm Dynamics</div>
+          <div class="boundary-desc">Managing a fleet of worker bees simultaneously.</div>
+        </div>
+        <div class="boundary-item later">
+          <div class="boundary-title">Weather & Predator Hazards</div>
+          <div class="boundary-desc">Raindrops, wind gusts, and nocturnal insects.</div>
+        </div>
+        <div class="boundary-item later">
+          <div class="boundary-title">Atmospheric Soundscapes</div>
+          <div class="boundary-desc">Ambient nighttime crickets, wind rustle, and low-frequency buzzing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cut Panel -->
+    <div id="panel-cut" class="tab-panel">
+      <div class="boundary-list">
+        <div class="boundary-item cut">
+          <div class="boundary-title">Accelerated / Simulated Day-Night Cycle</div>
+          <div class="boundary-desc">Cut in favor of strict, authentic real-world 3:00 AM time commitment.</div>
+        </div>
+        <div class="boundary-item cut">
+          <div class="boundary-title">Direct Manual Arcade Flight Controls</div>
+          <div class="boundary-desc">Cut in favor of the calm, autonomous scent beacon system.</div>
+        </div>
+        <div class="boundary-item cut">
+          <div class="boundary-title">Multiplayer / Online Leaderboards</div>
+          <div class="boundary-desc">Out of scope for a focused, local proof of concept.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Devpost Learn: Build With AI: Basics • Canonical Document: <code>devpost/scope.md</code>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+      
+      const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tab));
+      if (targetBtn) targetBtn.classList.add('active');
+      
+      const targetPanel = document.getElementById('panel-' + tab);
+      if (targetPanel) targetPanel.classList.add('active');
+    }
+  </script>
+</body>
+</html>
