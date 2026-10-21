@@ -65,12 +65,26 @@ namespace Beeplex.UI
         {
             BeeAgent.OnNectarChanged += UpdateNectarDisplay;
             HiveBase.OnHiveInventoryChanged += UpdateHiveScore;
+            Core.TimeEventManager.OnDreamBloomStart += HandleDreamBloomStart;
+            Core.TimeEventManager.OnDreamBloomEnd += HandleDreamBloomEnd;
         }
 
         private void OnDisable()
         {
             BeeAgent.OnNectarChanged -= UpdateNectarDisplay;
             HiveBase.OnHiveInventoryChanged -= UpdateHiveScore;
+            Core.TimeEventManager.OnDreamBloomStart -= HandleDreamBloomStart;
+            Core.TimeEventManager.OnDreamBloomEnd -= HandleDreamBloomEnd;
+        }
+
+        private void HandleDreamBloomStart()
+        {
+            SetDreamBannerActive(true);
+        }
+
+        private void HandleDreamBloomEnd()
+        {
+            SetDreamBannerActive(false);
         }
 
         private void Update()

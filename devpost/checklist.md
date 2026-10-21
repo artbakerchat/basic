@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Direct the bee to flowers, watch the golden nectar slider fill up to 20/20, see the bee return to the hive, and observe Standard Honey incrementing.
   Commit: `Implement nectar harvesting, UI capacity slider, and hive honey deposits`
 
-- [ ] **3. Real-time clock, midnight lighting transition, and 3:00 AM Dream Bloom event**
+- [x] **3. Real-time clock, midnight lighting transition, and 3:00 AM Dream Bloom event**
   Becomes usable: The Canvas clock continuously reflects local system time. When the 3:00 AM window arrives, world lighting dims to midnight blue, the `✧ DREAM BLOOM ACTIVE ✧` banner illuminates, dream blooms glow cyan with floating spores for 45 seconds, and siphoning them deposits rare Dream Drops into the hive score.
   Why now: Completes the signature nocturnal event, fulfills all acceptance criteria, and readies the application for recording the demo video.
   PRD ref: `prd.md > Feature 4: Real-Time 3:00 AM Dream Bloom Event`, `prd.md > Look and Feel`
@@ -41,7 +41,7 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — Slice 2 boundary (full foraging and hive deposit loop)
+- [x] Early usable behavior explored — Slice 2 boundary (full foraging and hive deposit loop)
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
