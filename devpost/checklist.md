@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Open the scene in Unity, move your mouse over different flower patches, and verify the bee steers and hovers smoothly over the targeted flower.
   Commit: `Scaffold meadow and implement gaze scent beacon with autonomous bee flight`
 
-- [ ] **2. Nectar harvesting, golden capacity slider, and hive honey deposit**
+- [x] **2. Nectar harvesting, golden capacity slider, and hive honey deposit**
   Becomes usable: When the bee arrives at a flower, it locks on for 2.5 seconds to harvest (+5 nectar), dynamically updating the golden `Nectar_Slider`. Reaching 20/20 max capacity (or looking at the hive) sends the bee to the hive to deposit honey, resetting the slider and incrementing the honey score.
   Why now: Closes the full core gameplay loop (forage -> fill -> deposit -> score) before layering on nocturnal lighting and timed events.
   PRD ref: `prd.md > Feature 2: Nectar Harvesting & Capacity Management`, `prd.md > Feature 3: Hive Return & Resource Deposition`
