@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beeplex — Product Requirements (PRD)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --amber: #f59e0b;
+      --amber-light: #fbbf24;
+      --amber-glow: rgba(245, 158, 11, 0.2);
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.2);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2.5rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--amber-glow);
+      color: var(--amber-light);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--amber-light);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    h3 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    p { margin-bottom: 0.75rem; color: #e5e7eb; }
+    
+    /* Interactive Journey Stepper */
+    .step-navigator {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .step-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: var(--text-muted);
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .step-btn:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .step-btn.active {
+      background: var(--amber);
+      color: #000;
+      border-color: var(--amber-light);
+    }
+    .step-content {
+      display: none;
+      background: #0d131f;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1.5rem;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .step-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Diagram Container */
+    .diagram-container {
+      background: #0d131f;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    
+    /* Rules & Feature cards */
+    .rule-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 4px solid var(--amber);
+      padding: 1rem;
+      margin: 0.75rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .rule-card.cyan {
+      border-left-color: var(--cyan);
+      background: rgba(56, 189, 248, 0.04);
+    }
+    .rule-card.green {
+      border-left-color: var(--green);
+      background: rgba(16, 185, 129, 0.04);
+    }
+    
+    /* Acceptance Criteria checklist */
+    .criteria-list {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .criteria-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+    .criteria-check {
+      color: var(--green);
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    
+    .hud-preview {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .hud-box {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 6px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .hud-box-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hud-box-val {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-top: 0.25rem;
+    }
+    
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1><span>🐝</span> Beeplex — Product Requirements</h1>
+      <p class="subtitle">Complete behavioral definition, state machine, and Unity scene specification.</p>
+    </div>
+    <div>
+      <span class="badge" style="background: var(--green-glow); color: #34d399; border-color: #059669;">✓ PRD Approved</span>
+    </div>
+  </header>
+
+  <!-- State & Journey Diagram -->
+  <section>
+    <h2>Autonomous & Gaze State Machine</h2>
+    <p>How player gaze, autonomous bee flight, and the 3:00 AM real-time event interconnect:</p>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 880 260" width="100%" height="260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#f59e0b"/>
+          </marker>
+          <marker id="cyanArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+          </marker>
+        </defs>
+
+        <!-- Standard Loop -->
+        <!-- Step 1: Hive / Idle -->
+        <rect x="20" y="30" width="130" height="60" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="85" y="55" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Hive / Idle</text>
+        <text x="85" y="72" text-anchor="middle" fill="#94a3b8" font-size="10">0/20 Nectar</text>
+
+        <!-- Arrow 1 -> 2 -->
+        <line x1="150" y1="60" x2="190" y2="60" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Step 2: Gaze Scent Beacon -->
+        <rect x="200" y="30" width="150" height="60" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="275" y="55" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Flower Gaze</text>
+        <text x="275" y="72" text-anchor="middle" fill="#fbbf24" font-size="10">Casts Scent Beacon</text>
+
+        <!-- Arrow 2 -> 3 -->
+        <line x1="350" y1="60" x2="390" y2="60" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Step 3: Pathfind & Hover -->
+        <rect x="400" y="30" width="150" height="60" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <text x="475" y="53" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Pathfind & Hover</text>
+        <text x="475" y="70" text-anchor="middle" fill="#94a3b8" font-size="10">2–3s Siphoning</text>
+
+        <!-- Arrow 3 -> 4 -->
+        <line x1="550" y1="60" x2="590" y2="60" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+
+        <!-- Step 4: Max Capacity / Recall -->
+        <rect x="600" y="30" width="150" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+        <text x="675" y="53" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Return to Hive</text>
+        <text x="675" y="70" text-anchor="middle" fill="#34d399" font-size="10">Auto at 20/20 or Gaze</text>
+
+        <!-- Return Loop Arrow (back to hive) -->
+        <path d="M 675 90 L 675 120 L 85 120 L 85 90" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow)"/>
+        <text x="380" y="115" text-anchor="middle" fill="#34d399" font-size="11">+Honey deposited, Nectar reset</text>
+
+        <!-- 3:00 AM Event Branch -->
+        <rect x="20" y="160" width="200" height="70" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="2"/>
+        <text x="120" y="188" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="bold">Clock = 3:00 AM</text>
+        <text x="120" y="206" text-anchor="middle" fill="#93c5fd" font-size="10">45-Second Real-Time Window</text>
+
+        <!-- Arrow Clock -> Event FX -->
+        <line x1="220" y1="195" x2="270" y2="195" stroke="#38bdf8" stroke-width="2" marker-end="url(#cyanArrow)"/>
+
+        <rect x="280" y="160" width="270" height="70" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="2"/>
+        <text x="415" y="185" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">✧ DREAM BLOOM ACTIVE ✧</text>
+        <text x="415" y="202" text-anchor="middle" fill="#7dd3fc" font-size="10">Midnight Blue Lighting & Cyan Point Light 2D</text>
+        <text x="415" y="217" text-anchor="middle" fill="#38bdf8" font-size="10">Rising Bioluminescent Dream Spores</text>
+
+        <!-- Arrow FX -> Reward -->
+        <line x1="550" y1="195" x2="600" y2="195" stroke="#38bdf8" stroke-width="2" marker-end="url(#cyanArrow)"/>
+
+        <rect x="610" y="160" width="230" height="70" rx="8" fill="#0c2340" stroke="#38bdf8" stroke-width="2"/>
+        <text x="725" y="188" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="bold">Harvest Dream Drops</text>
+        <text x="725" y="206" text-anchor="middle" fill="#bae6fd" font-size="10">Increments DreamNectar_Text</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Interactive States & Behaviors -->
+  <section>
+    <h2>Interactive Screen States & Behaviors</h2>
+    <div class="step-navigator">
+      <button class="step-btn active" onclick="showState(1)">1. Fresh Arrival</button>
+      <button class="step-btn" onclick="showState(2)">2. Gaze & Retargeting</button>
+      <button class="step-btn" onclick="showState(3)">3. Harvest & Capacity</button>
+      <button class="step-btn" onclick="showState(4)">4. Hive Return</button>
+      <button class="step-btn" onclick="showState(5)">5. 3:00 AM Dream Bloom</button>
+      <button class="step-btn" onclick="showState(6)">6. Edge Cases</button>
+    </div>
+
+    <!-- State 1 -->
+    <div id="state-1" class="step-content active">
+      <h3>State 1: Initial Arrival & Perched Bee</h3>
+      <p>The scene launches with live system clock tracking and the colony ready for dispatch:</p>
+      <div class="hud-preview">
+        <div class="hud-box">
+          <div class="hud-box-title">Nectar Slider</div>
+          <div class="hud-box-val" style="color: var(--amber);">0 / 20 Nectar</div>
+        </div>
+        <div class="hud-box">
+          <div class="hud-box-title">System Clock</div>
+          <div class="hud-box-val" style="color: #fff;">Live (e.g. 03:15 AM)</div>
+        </div>
+        <div class="hud-box">
+          <div class="hud-box-title">Hive Score</div>
+          <div class="hud-box-val" style="color: #34d399;">Honey: 0 | Dream: 0</div>
+        </div>
+      </div>
+      <div class="rule-card">
+        <strong>Behavior:</strong> The bee starts comfortably perched at the central hive. The <code>DreamEvent_Banner</code> is inactive. Gaze raycasting is active immediately upon mouse movement.
+      </div>
+    </div>
+
+    <!-- State 2 -->
+    <div id="state-2" class="step-content">
+      <h3>State 2: Scent Beacon & Retargeting Rules</h3>
+      <p>How the bee prioritizes player gaze commands in real time:</p>
+      <div class="rule-card">
+        <strong>Mid-Flight Redirection:</strong> If the player looks at Flower A and then shifts gaze to Flower B while the bee is still traveling, the bee immediately dynamically recalculates its path toward Flower B.
+      </div>
+      <div class="rule-card">
+        <strong>Mid-Harvest Lock-On:</strong> If the bee has reached a flower and has begun its 2–3s siphoning cycle, shifting gaze will <em>not</em> interrupt the harvest. The bee finishes extracting the current blossom, then departs immediately for the newly targeted beacon.
+      </div>
+    </div>
+
+    <!-- State 3 -->
+    <div id="state-3" class="step-content">
+      <h3>State 3: Nectar Harvesting & Capacity</h3>
+      <p>Managing cargo and inventory limits:</p>
+      <div class="rule-card">
+        <strong>Hover Duration:</strong> 2 to 3 seconds of hover over blossoms to siphon nectar.
+      </div>
+      <div class="rule-card">
+        <strong>Yield & Capacity:</strong> Each harvest yields +5 nectar. The golden slider dynamically fills. Upon reaching exactly 20/20, foraging locks out and return state triggers automatically.
+      </div>
+    </div>
+
+    <!-- State 4 -->
+    <div id="state-4" class="step-content">
+      <h3>State 4: Hive Return & Deposit</h3>
+      <p>Two ways to bring home the harvest:</p>
+      <div class="rule-card green">
+        <strong>Autonomous Full Return:</strong> When capacity hits 20/20, the bee automatically prioritizes returning to the hive, overriding flower gaze until unloaded.
+      </div>
+      <div class="rule-card green">
+        <strong>Manual Early Recall:</strong> Looking directly at the hive casts a return beacon, recalling the bee early even with partial nectar (e.g. 5/20 or 10/20).
+      </div>
+      <div class="rule-card green">
+        <strong>Deposit Feedback:</strong> Touching the hive resets the slider to 0/20, increments <code>StandardHoney_Text</code>, and readies the bee for the next command.
+      </div>
+    </div>
+
+    <!-- State 5 -->
+    <div id="state-5" class="step-content">
+      <h3>State 5: The 3:00 AM Dream Bloom Event</h3>
+      <p>The core mystery event of Beeplex:</p>
+      <div class="rule-card cyan">
+        <strong>Duration:</strong> Exactly 45 seconds of real-world time (representing 3:00 AM – 3:30 AM in-game).
+      </div>
+      <div class="rule-card cyan">
+        <strong>Visual Atmospheric Cues:</strong>
+        <ul style="margin-left: 1.25rem; margin-top: 0.5rem;">
+          <li>Global 2D lighting smoothly dims to a deep midnight blue.</li>
+          <li><code>DreamEvent_Banner</code> illuminates: <strong>✧ DREAM BLOOM ACTIVE ✧</strong>.</li>
+          <li>Dream blooms uncurl with a pulsating cyan Point Light 2D.</li>
+          <li>Rising bioluminescent spore particles float upward from open blooms.</li>
+        </ul>
+      </div>
+      <div class="rule-card cyan">
+        <strong>Reward:</strong> Siphoning dream blooms yields rare Dream Drops that deposit into <code>DreamNectar_Text</code>.
+      </div>
+    </div>
+
+    <!-- State 6 -->
+    <div id="state-6" class="step-content">
+      <h3>State 6: Key Unity Edge Cases</h3>
+      <div class="rule-card">
+        <strong>Gaze on Empty Ground:</strong> If the cursor moves over rocks, grass, or empty space, no new beacon is placed; the bee continues its current directive without jittering or getting lost.
+      </div>
+      <div class="rule-card">
+        <strong>Depleted Flower Patch:</strong> A flower harvested to exhaustion closes or wilts; looking at it will not place a valid beacon until it recharges.
+      </div>
+      <div class="rule-card cyan">
+        <strong>Event Timeout Mid-Harvest:</strong> If the 45-second Dream Bloom window expires while the bee is in the middle of siphoning a dream bloom, it finishes harvesting that single dream drop before the bloom recedes.
+      </div>
+    </div>
+  </section>
+
+  <!-- Acceptance Criteria -->
+  <section>
+    <h2>Acceptance Criteria (Checkable During Build)</h2>
+    <ul class="criteria-list">
+      <li class="criteria-item"><span class="criteria-check">✓</span> Hovering over a flower patch visibly updates the bee's trajectory toward that flower.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Gaze shifts in-flight instantly redirect flight toward the new target.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Gaze shifts during active harvest allow the current 2-3s siphon to finish before redirecting.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Nectar slider and numeric label accurately update in +5 increments up to 20/20 max capacity.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Bee automatically heads home at 20/20, or returns early when player looks at the hive.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Reaching the hive clears carried nectar to 0/20 and increments Standard Honey or Dream Drops.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> At 3:00 AM, the 45-second event triggers banner illumination, midnight lighting, cyan Point Light 2D, and dream spores.</li>
+      <li class="criteria-item"><span class="criteria-check">✓</span> Dream drops harvested during the event deposit into DreamNectar_Text.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Devpost Learn: Build With AI: Basics • Canonical Document: <code>devpost/prd.md</code>
+  </footer>
+
+  <script>
+    function showState(num) {
+      document.querySelectorAll('.step-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === num - 1);
+      });
+      document.querySelectorAll('.step-content').forEach((c, i) => {
+        c.classList.toggle('active', i === num - 1);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ---
 doc: learner-profile-public
-status: completed-2-scope
-next-step: 3-prd
+status: completed-3-prd
+next-step: 4-spec
 ---
 
 # Beeplex — Project Profile & Progress (Public)
@@ -25,9 +25,10 @@ next-step: 3-prd
   - Project concept and pacing established.
 * **Step 2 (`2-scope`)**: Completed ✅
   - Scope defined and approved (`devpost/scope.md`, `devpost/scope.html`).
-* **Step 3 (`3-prd`)**: Next ⏳
-  - Detailed product behavior, state machine, and scene specs.
-* **Step 4 (`4-spec`)**: Pending
+* **Step 3 (`3-prd`)**: Completed ✅
+  - Product behaviors, state transitions, and edge cases defined and approved (`devpost/prd.md`, `devpost/prd.html`).
+* **Step 4 (`4-spec`)**: Next ⏳
+  - Technical architecture, component layout, and data models.
 * **Step 5 (`5-build`)**: Pending
 * **Step 6 (`6-ship`)**: Pending
 
